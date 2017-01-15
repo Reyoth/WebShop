@@ -1,0 +1,75 @@
+﻿@using WebShop.Domain
+@using WebShop.Web.Helpers
+
+@model WebShop.Web.Models.ArticleViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Articles", FormMethod.Post, new {@class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Article.ART_Id)
+    <div class="form-group">
+        <label class="control-label col-md-2">Nom</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.Article.ART_Libelle, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.Article.ART_Libelle)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Description</label>
+        <div class="col-md-4">
+            @Html.TextAreaFor(model => model.Article.ART_Description, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.Article.ART_Description)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Prix</label>
+        <div class="col-md-4">
+            @Html.TextAreaFor(model => model.Article.ART_Prix, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.Article.ART_Prix)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Stock</label>
+        <div class="col-md-4">
+            @Html.TextAreaFor(model => model.Article.ART_Stock, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.Article.ART_Stock)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Catégorie</label>
+        <div class="col-md-4">
+            @Html.AjaxSelectFor(model => model.CategoryId, "/api/Categories/GetSelectList", true)
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.CategoryId)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Sous-catégorie</label>
+        <div class="col-md-4">
+            @Html.AjaxSelectFor(model => model.Article.ART_SCAT_Id, model => model.CategoryId, "/api/SubCategories/GetSelectList", true)
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.Article.ART_SCAT_Id)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <input type="submit" class="btn btn-primary" value="Sauvegarder !" />
+        </div>
+    </div>
+}

@@ -1,31 +1,55 @@
-﻿@{
+﻿@using GridMvc
+@using GridMvc.Html
+@using WebShop.Web.Session
+@model IQueryable<WebShop.Domain.Article>
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@*@if (UserInfo.IsAdmin())*@
+@if (true)
+{
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.ActionLink("Ajouter un article", "Create", "Article", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+}
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+<div class="table-responsive">
+    @Html.Grid(Model).Columns(col =>
+{
+    col.Add(model => model.ART_Libelle)
+        .Titled("Article")
+        .Filterable(true)
+        .Sortable(true);
+    col.Add(model => model.ART_Prix)
+        .Titled("Prix")
+        .Filterable(true)
+        .Sortable(true);
+    col.Add(model => model.ART_Stock)
+        .Titled("Stock")
+        .Filterable(true)
+        .Sortable(true);
+    col.Add()
+        .Sanitized(false)
+        .Encoded(false)
+        .RenderValueAs(model => Html.ActionLink("Détails", "Detail", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-primary" }))
+        .SetWidth(100);
+    //if (UserInfo.IsAdmin())
+    if (true)
+    {
+        col.Add()
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(model => Html.ActionLink("Modifier", "Edit", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-primary" }))
+            .SetWidth(100);
+        col.Add()
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(model => Html.ActionLink("Supprimer", "Delete", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-danger" }))
+            .SetWidth(100);
+    }
+}).EmptyText("rien").Sortable(true).Filterable(true).WithPaging(10)
+    
 </div>
