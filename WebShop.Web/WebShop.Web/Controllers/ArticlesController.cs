@@ -11,7 +11,7 @@ namespace WebShop.Web.Controllers
 {
     public class ArticlesController : Controller
     {
-        public ViewResult Detail(int id)
+        public PartialViewResult Detail(int id)
         {
             using (var context = new WebShopEntities())
             {
@@ -22,10 +22,10 @@ namespace WebShop.Web.Controllers
                     CategoryId = article.SousCategorie.SCAT_CAT_Id,
                     Category = article.SousCategorie.Categorie.CAT_Libelle
                 };
-                return View(model);
+                return PartialView(model);
             }
         }
-
+        [HttpGet]
         public ViewResult Create()
         {
             var model = new ArticleViewModel {Article = new Article()};

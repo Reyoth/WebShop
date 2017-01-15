@@ -16,9 +16,7 @@ namespace WebShop.Web.Controllers
 
             var dbContext = new WebShop.Domain.WebShopEntities();
             var model = dbContext.Articles.OrderBy(a=>a.ART_Libelle);
-            ViewBag.listeSouCat = dbContext.SousCategories.ToList();
-            ViewBag.listeCat = dbContext.Categories.ToList();
-                return View(model);
+            return View(model);
             
             
            
