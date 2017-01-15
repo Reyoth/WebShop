@@ -19,7 +19,8 @@ namespace WebShop.Web.Controllers
                 var model = new ArticleViewModel
                 {
                     Article = article,
-                    CategoryId = article.SousCategorie.SCAT_CAT_Id
+                    CategoryId = article.SousCategorie.SCAT_CAT_Id,
+                    Category = article.SousCategorie.Categorie.CAT_Libelle
                 };
                 return View(model);
             }

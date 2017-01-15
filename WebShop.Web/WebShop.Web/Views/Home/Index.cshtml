@@ -1,7 +1,9 @@
 ﻿@using GridMvc
 @using GridMvc.Html
+@using WebShop.Web.Helpers
 @using WebShop.Web.Session
 @model IQueryable<WebShop.Domain.Article>
+
 @{
     ViewBag.Title = "Home Page";
 }
@@ -11,10 +13,33 @@
 {
     <div class="row">
         <div class="col-xs-12">
-            @Html.ActionLink("Ajouter un article", "Create", "Article", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Ajouter un article", "Create", "Articles", null, new { @class = "btn btn-primary right" })
         </div>
     </div>
 }
+@*<div class="form-group">
+    <label class="control-label col-md-2">Catégorie</label>
+    <div class="col-md-4">
+        @Html.AjaxSelect( ViewBag.listeCat, "/api/Categories/GetSelectList")
+    </div>
+    <div class="col-md-6">
+        @Html.ValidationMessageFor(model => model.CategoryId)
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-2">Sous-catégorie</label>
+    <div class="col-md-4">
+        @Html.AjaxSelectFor(model => model.Article.ART_SCAT_Id, model => model.CategoryId, "/api/SubCategories/GetSelectList", true)
+    </div>
+    <div class="col-md-6">
+        @Html.ValidationMessageFor(model => model.Article.ART_SCAT_Id)
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-4">
+        <input type="submit" class="btn btn-primary" value="search" />
+    </div>
+</div>*@
 
 <div class="table-responsive">
     @Html.Grid(Model).Columns(col =>

@@ -6,5 +6,6 @@ namespace WebShop.Web.Models
     {
         public Article Article { get; set; }
         public int CategoryId { get; set; }
+        public string Category { get; set; }
     }
 }

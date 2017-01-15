@@ -52,89 +52,89 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetRole.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUser.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Categorie.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Client.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Commande.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DetailCommande.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SousCategorie.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="WebShopDbContext.Context.cs">
+    <Compile Include="WebShopModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WebShopDbContext.Context.tt</DependentUpon>
+      <DependentUpon>WebShopModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="WebShopDbContext.cs">
+    <Compile Include="WebShopModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WebShopDbContext.tt</DependentUpon>
+      <DependentUpon>WebShopModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="WebShopDbContext.Designer.cs">
+    <Compile Include="WebShopModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WebShopDbContext.edmx</DependentUpon>
+      <DependentUpon>WebShopModel.edmx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="WebShopDbContext.edmx">
+    <EntityDeploy Include="WebShopModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>WebShopDbContext.Designer.cs</LastGenOutput>
+      <LastGenOutput>WebShopModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="WebShopDbContext.edmx.diagram">
-      <DependentUpon>WebShopDbContext.edmx</DependentUpon>
+    <None Include="WebShopModel.edmx.diagram">
+      <DependentUpon>WebShopModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WebShopDbContext.Context.tt">
+    <Content Include="WebShopModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WebShopDbContext.edmx</DependentUpon>
-      <LastGenOutput>WebShopDbContext.Context.cs</LastGenOutput>
+      <DependentUpon>WebShopModel.edmx</DependentUpon>
+      <LastGenOutput>WebShopModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="WebShopDbContext.tt">
+    <Content Include="WebShopModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WebShopDbContext.edmx</DependentUpon>
-      <LastGenOutput>WebShopDbContext.cs</LastGenOutput>
+      <DependentUpon>WebShopModel.edmx</DependentUpon>
+      <LastGenOutput>WebShopModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

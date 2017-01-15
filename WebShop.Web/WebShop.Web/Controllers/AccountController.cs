@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using WebShop.Domain;
 using WebShop.Web.Models;
 
 namespace WebShop.Web.Controllers
@@ -154,16 +155,67 @@ namespace WebShop.Web.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
+
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    try
+
+                    {
+
+                        // ajout du user dans la table client
+
+                        using (WebShopEntities dal = new WebShopEntities())
+
+                        {
+                            dal.Clients.Add(new Client()
+
+                            {
+
+                                CLI_Nom = model.Nom,
+
+                                CLI_Prenom = model.Prenom,
+
+                                CLI_Civilite = model.Civilite,
+
+                                CLI_Email = model.Email,
+
+                                CLI_Adresse = model.Adresse,
+
+                                CLI_CodePostal = model.CodePostal,
+
+                                CLI_Ville = model.Ville,
+
+                                CLI_Telephone = model.Telephone,
+
+                                CLI_AspNetUsersId = user.Id
+
+                            });
+
+                            dal.SaveChanges();
+
+                        }
+                    }
+
+                    catch (Exception ex)
+
+                    {
+
+                        // client n'est pas ajouté delete l'asp user créé
+                        Console.WriteLine(ex.InnerException.InnerException.Message);
+                        
+                        await UserManager.DeleteAsync(user);
+
+                        ModelState.AddModelError("", "Echec création client, veuillez réessayer"); return View(model);
+
+                    }
+
+                    // on affecte le rôle client
+
+                    UserManager.AddToRole(user.Id, "User");
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     return RedirectToAction("Index", "Home");
+
                 }
                 AddErrors(result);
             }
