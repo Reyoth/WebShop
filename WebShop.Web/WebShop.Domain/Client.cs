@@ -29,7 +29,7 @@ namespace WebShop.Domain
         public string CLI_CodePostal { get; set; }
         public string CLI_Ville { get; set; }
         public string CLI_Telephone { get; set; }
-        public string CLI_AspNetUsersId { get; set; }
+        public string CLI_NetUserId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

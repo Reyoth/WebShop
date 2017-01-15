@@ -8,11 +8,10 @@
     ViewBag.Title = "Home Page";
 }
 
-@*@if (UserInfo.IsAdmin())*@
-@if (true)
+@if (true) //UserInfo.IsAdmin()
 {
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-1 col-lg-offset-11">
             @Html.ActionLink("Ajouter un article", "Create", "Articles", null, new { @class = "btn btn-primary right" })
         </div>
     </div>
@@ -60,20 +59,20 @@
         .Sanitized(false)
         .Encoded(false)
         .RenderValueAs(model => Html.ActionLink("Détails", "Detail", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-primary" }))
-        .SetWidth(100);
-    //if (UserInfo.IsAdmin())
+        .SetWidth(80);
     if (true)
+    //if (UserInfo.IsAdmin()
     {
         col.Add()
             .Sanitized(false)
             .Encoded(false)
             .RenderValueAs(model => Html.ActionLink("Modifier", "Edit", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-primary" }))
-            .SetWidth(100);
+            .SetWidth(80);
         col.Add()
             .Sanitized(false)
             .Encoded(false)
             .RenderValueAs(model => Html.ActionLink("Supprimer", "Delete", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-danger" }))
-            .SetWidth(100);
+            .SetWidth(80);
     }
 }).EmptyText("rien").Sortable(true).Filterable(true).WithPaging(10)
     

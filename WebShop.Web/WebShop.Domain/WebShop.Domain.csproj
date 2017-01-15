@@ -52,89 +52,89 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetRole.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUser.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Categorie.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Client.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Commande.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DetailCommande.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SousCategorie.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="WebShopModel.Context.cs">
+    <Compile Include="WebShopEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WebShopModel.Context.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="WebShopModel.cs">
+    <Compile Include="WebShopEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WebShopModel.tt</DependentUpon>
+      <DependentUpon>WebShopEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="WebShopModel.Designer.cs">
+    <Compile Include="WebShopEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WebShopModel.edmx</DependentUpon>
+      <DependentUpon>WebShopEntities.edmx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="WebShopModel.edmx">
+    <EntityDeploy Include="WebShopEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>WebShopModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>WebShopEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="WebShopModel.edmx.diagram">
-      <DependentUpon>WebShopModel.edmx</DependentUpon>
+    <None Include="WebShopEntities.edmx.diagram">
+      <DependentUpon>WebShopEntities.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WebShopModel.Context.tt">
+    <Content Include="WebShopEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WebShopModel.edmx</DependentUpon>
-      <LastGenOutput>WebShopModel.Context.cs</LastGenOutput>
+      <DependentUpon>WebShopEntities.edmx</DependentUpon>
+      <LastGenOutput>WebShopEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="WebShopModel.tt">
+    <Content Include="WebShopEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WebShopModel.edmx</DependentUpon>
-      <LastGenOutput>WebShopModel.cs</LastGenOutput>
+      <DependentUpon>WebShopEntities.edmx</DependentUpon>
+      <LastGenOutput>WebShopEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

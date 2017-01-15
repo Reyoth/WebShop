@@ -186,7 +186,7 @@ namespace WebShop.Web.Controllers
 
                                 CLI_Telephone = model.Telephone,
 
-                                CLI_AspNetUsersId = user.Id
+                                CLI_NetUserId = user.Id
 
                             });
 
@@ -210,7 +210,7 @@ namespace WebShop.Web.Controllers
 
                     // on affecte le rôle client
 
-                    UserManager.AddToRole(user.Id, "User");
+                    UserManager.AddToRole(user.Id, "client");
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 

@@ -96,8 +96,8 @@
           <Property Name="CLI_Adresse" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CLI_CodePostal" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CLI_Ville" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CLI_Telephone" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CLI_AspNetUsersId" Type="nvarchar" MaxLength="128" />
+          <Property Name="CLI_Telephone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CLI_NetUserId" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="Commande">
           <Key>
@@ -163,7 +163,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Client">
-              <PropertyRef Name="CLI_AspNetUsersId" />
+              <PropertyRef Name="CLI_NetUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -455,8 +455,8 @@
           <Property Name="CLI_Adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CLI_CodePostal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CLI_Ville" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CLI_Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CLI_AspNetUsersId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CLI_Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CLI_NetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Client_AspNetUsers" FromRole="Client" ToRole="AspNetUsers" />
           <NavigationProperty Name="Commandes" Relationship="Self.FK_Commande_Client" FromRole="Client" ToRole="Commande" />
         </EntityType>
@@ -570,7 +570,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Client">
-              <PropertyRef Name="CLI_AspNetUsersId" />
+              <PropertyRef Name="CLI_NetUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -798,7 +798,7 @@
                 <ScalarProperty Name="CLI_CodePostal" ColumnName="CLI_CodePostal" />
                 <ScalarProperty Name="CLI_Ville" ColumnName="CLI_Ville" />
                 <ScalarProperty Name="CLI_Telephone" ColumnName="CLI_Telephone" />
-                <ScalarProperty Name="CLI_AspNetUsersId" ColumnName="CLI_AspNetUsersId" />
+                <ScalarProperty Name="CLI_NetUserId" ColumnName="CLI_NetUserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
