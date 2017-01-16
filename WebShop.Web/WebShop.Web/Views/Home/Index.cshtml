@@ -20,44 +20,45 @@
 }
 <div class="row">
     <div class="col-xs-2 cat">Catégories :</div>
-    <div class="col-xs-2">@Html.AjaxSelect("Categorie", "/api/Categories/GetSelectList", string.Empty, true)</div>
-    <div class="col-xs-2">@Html.AjaxSelect("SousCategorie", "/api/SubCategories/GetSelectList", string.Empty, "Categorie", true)</div>
+    <div class="col-xs-2">@Html.AjaxSelect("Categorie", "/api/Categories/GetSelectList", string.Empty, false, true)</div>
+    <div class="col-xs-2">@Html.AjaxSelect("SousCategorie", "/api/SubCategories/GetSelectList", string.Empty, "Categorie", false, true)</div>
+    <div class="col-xs-2"><a class="btn btn-primary"></a></div>
 </div>
-    <div class="table-responsive">
-        @Html.Grid(Model).Columns(col =>
-   {
-       col.Add(model => model.ART_Libelle)
-           .Titled("Article")
-           .Filterable(true)
-           .Sortable(true);
-       col.Add(model => model.ART_Prix)
-           .Titled("Prix")
-           .Filterable(true)
-           .Sortable(true);
-       col.Add(model => model.ART_Stock)
-           .Titled("Stock")
-           .Filterable(true)
-           .Sortable(true);
-       col.Add()
-           .Sanitized(false)
-           .Encoded(false)
-          .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Detail\">Détails</a>").SetWidth(80);
-       if (true)
-       //if (UserInfo.IsAdmin())
-       {
-           col.Add()
-               .Sanitized(false)
-               .Encoded(false)
-          .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Edit\">Modifier</a>").SetWidth(80);
-           col.Add()
-               .Sanitized(false)
-               .Encoded(false)
-               .RenderValueAs(model => Html.ActionLink("Supprimer", "Delete", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-danger" }))
-               .SetWidth(80);
-       }
-   }).EmptyText("rien").Sortable(true).Filterable(true).WithPaging(10)
+<div class="table-responsive">
+    @Html.Grid(Model).Columns(col =>
+    {
+        col.Add(model => model.ART_Libelle)
+            .Titled("Article")
+            .Filterable(true)
+            .Sortable(true);
+        col.Add(model => model.ART_Prix)
+            .Titled("Prix")
+            .Filterable(true)
+            .Sortable(true);
+        col.Add(model => model.ART_Stock)
+            .Titled("Stock")
+            .Filterable(true)
+            .Sortable(true);
+        col.Add()
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Detail\">Détails</a>").SetWidth(80);
+        if (true)
+            //if (UserInfo.IsAdmin())
+        {
+            col.Add()
+                .Sanitized(false)
+                .Encoded(false)
+                .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Edit\">Modifier</a>").SetWidth(80);
+            col.Add()
+                .Sanitized(false)
+                .Encoded(false)
+                .RenderValueAs(model => Html.ActionLink("Supprimer", "Delete", "Articles", new {id = model.ART_Id}, new {@class = "btn btn-sm btn-danger"}))
+                .SetWidth(80);
+        }
+    }).EmptyText("rien").Sortable(true).Filterable(true).WithPaging(10)
 
-    </div>
+</div>
 <p>
     <a href="#" class="btn btn-primary btn-lg" id="btnCreate">Create</a>
 </p>
@@ -94,5 +95,44 @@
                         });
                     });
             });
-</script>
+
+        $(document)
+            .ready(function() {
+                $("#btnCreate")
+                    .click(function() {
+                        //console.log("bouton create click");
+                        $.ajax({
+                            type: "GET",
+                            url: '@Url.Action("Create", "Personne")',
+                            success:
+                                function(data) {
+                                    $("#myModalcontent").html(data);
+                                    $("#myModal").modal("show");
+                                }
+                        });
+                    });
+
+                $(document)
+                    .on('click',
+                        "#btnCreateModal",
+                        function() {
+                            //console.log("bouton create modal click");
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("Create", "Personne")',
+                                data: $("#frmCreate").serialize(),
+                                success:
+                                    function(data) {
+                                        if (data.result == "ok") {
+                                            $("#myModal").modal("hide");
+                                            location.reload();
+                                        } else {
+                                            $("#myModalcontent").html(data);
+                                            $("#myModal").modal("show");
+                                        }
+                                    }
+                            });
+                        });
+            });
+    </script>
 }

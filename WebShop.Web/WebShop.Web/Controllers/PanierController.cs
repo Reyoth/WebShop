@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
+using WebShop.Domain;
 
 namespace WebShop.Web.Controllers
 {
@@ -11,7 +14,22 @@ namespace WebShop.Web.Controllers
         // GET: Panier
         public ActionResult Index()
         {
-            return View();
+            ViewData["Message"] = "Mon panier";
+            var article = new Article();
+            DataTable dt = new DataTable("Mon Panier");
+            dt.Columns.Add(new DataColumn("Libelle", typeof(string)));
+            dt.Columns.Add(new DataColumn("Prix", typeof(string)));
+            dt.Columns.Add(new DataColumn("Quantité", typeof(string)));
+
+            for (int i = 0; i < 3; i++)
+            {
+                DataRow row = dt.NewRow();
+                row["Libelle"] = "Ca va etre chiant" + i;
+                row["Prix"] = "Ca va etre chiant" + i;
+                row["Quantité"] = "Ca va etre chiant" + i;
+                dt.Rows.Add(row);
+            }
+            return View(dt);
         }
 
         // GET: Panier/Details/5

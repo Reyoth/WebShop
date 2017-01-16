@@ -12,7 +12,7 @@ namespace WebShop.Web.ApiControllers
 {
     public class SubCategoriesController : ApiController
     {
-        public object GetSelectList(int parentId, bool withEmpty = false)
+        public object GetSelectList(int parentId, bool withEmpty = false, bool withAll = false)
         {
             using (var context = new WebShopEntities())
             {
@@ -26,7 +26,8 @@ namespace WebShop.Web.ApiControllers
                     .ToList();
 
                 var data = new List<SelectListItemModel>();
-                if (withEmpty) data.Add(new SelectListItemModel { Id = string.Empty, Value = string.Empty });
+                if (withEmpty) data.Add(new SelectListItemModel { Id = string.Empty, Value = "-1" });
+                if (withAll) data.Add(new SelectListItemModel { Id = "Tous", Value = "-2" });
                 data.AddRange(categories);
 
                 return new

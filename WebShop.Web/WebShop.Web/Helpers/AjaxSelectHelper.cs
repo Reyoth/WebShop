@@ -7,18 +7,18 @@ namespace WebShop.Web.Helpers
     public static class AjaxSelectHelper
     {
         //creation select list remplie par ajax
-        public static MvcHtmlString AjaxSelect(this HtmlHelper html, string name, string sourceUrl, string selectedValue, bool withEmpty = false)
+        public static MvcHtmlString AjaxSelect(this HtmlHelper html, string name, string sourceUrl, string selectedValue, bool withEmpty = false, bool withAll = true)
         {
-            var selectBuilder = GetBaseSelect(name.GetControlId(), name, sourceUrl, withEmpty);
+            var selectBuilder = GetBaseSelect(name.GetControlId(), name, sourceUrl, withEmpty, withAll);
             if (!string.IsNullOrWhiteSpace(selectedValue))
                 selectBuilder.Attributes.Add("data-selected-id", selectedValue);
 
             return new MvcHtmlString(selectBuilder.ToString());
         }
         //pareille avec cascade
-        public static MvcHtmlString AjaxSelect(this HtmlHelper html, string name, string sourceUrl, string selectedValue, string cascadeFromName, bool withEmpty = false)
+        public static MvcHtmlString AjaxSelect(this HtmlHelper html, string name, string sourceUrl, string selectedValue, string cascadeFromName, bool withEmpty = false, bool withAll = true)
         {
-            var selectBuilder = GetBaseSelect(name.GetControlId(), name, sourceUrl, withEmpty);
+            var selectBuilder = GetBaseSelect(name.GetControlId(), name, sourceUrl, withEmpty, withAll);
             if (!string.IsNullOrWhiteSpace(selectedValue))
                 selectBuilder.Attributes.Add("data-selected-id", selectedValue);
             selectBuilder.Attributes.Add("data-cascade-from", "#" + cascadeFromName.GetControlId());
@@ -30,11 +30,12 @@ namespace WebShop.Web.Helpers
             this HtmlHelper<TModel> html,
             Expression<Func<TModel, TProperty>> expression,
             string sourceUrl,
-            bool withEmpty = false)
+            bool withEmpty = false,
+            bool withAll = false)
         {
             string controlFullName = html.GetControlName(expression);
 
-            var selectBuilder = GetBaseSelect(controlFullName.GetControlId(), controlFullName, sourceUrl, withEmpty);
+            var selectBuilder = GetBaseSelect(controlFullName.GetControlId(), controlFullName, sourceUrl, withEmpty, withAll);
             selectBuilder.Attributes.Add("data-selected-id", html.GetValue(expression));
 
             return new MvcHtmlString(selectBuilder.ToString());
@@ -45,19 +46,20 @@ namespace WebShop.Web.Helpers
             Expression<Func<TModel, TProperty>> expression,
             Expression<Func<TModel, TCascadeProperty>> cascadeFrom,
             string sourceUrl,
-            bool withEmpty = false)
+            bool withEmpty = false,
+            bool withAll = false)
         {
             string controlFullName = html.GetControlName(expression);
             string cascadeFromFullName = html.GetControlName(cascadeFrom);
 
-            var selectBuilder = GetBaseSelect(controlFullName.GetControlId(), controlFullName, sourceUrl, withEmpty);
+            var selectBuilder = GetBaseSelect(controlFullName.GetControlId(), controlFullName, sourceUrl, withEmpty, withAll);
             selectBuilder.Attributes.Add("data-selected-id", html.GetValue(expression));
             selectBuilder.Attributes.Add("data-cascade-from", "#" + cascadeFromFullName.GetControlId());
 
             return new MvcHtmlString(selectBuilder.ToString());
         }
 
-        private static TagBuilder GetBaseSelect(string controlId, string controlName, string sourceUrl, bool withEmpty)
+        private static TagBuilder GetBaseSelect(string controlId, string controlName, string sourceUrl, bool withEmpty, bool withAll)
         {
             var selectBuilder = new TagBuilder("select");
             selectBuilder.Attributes.Add("id", controlId);
@@ -65,6 +67,7 @@ namespace WebShop.Web.Helpers
             selectBuilder.Attributes.Add("data-toggle", "ajaxSelect");
             selectBuilder.Attributes.Add("data-source-url", sourceUrl);
             selectBuilder.Attributes.Add("data-with-empty", withEmpty.ToString());
+            selectBuilder.Attributes.Add("data-with-all", withAll.ToString());
             selectBuilder.AddCssClass("form-control");
             return selectBuilder;
         }

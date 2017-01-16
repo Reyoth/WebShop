@@ -25,7 +25,9 @@ namespace WebShop.Web.Controllers
                 return PartialView(model);
             }
         }
+
         [HttpGet]
+        [Authorize]
         public ViewResult Create()
         {
             var model = new ArticleViewModel {Article = new Article()};
@@ -34,6 +36,7 @@ namespace WebShop.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create(ArticleViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -47,6 +50,8 @@ namespace WebShop.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        [Authorize]
         public ViewResult Edit(int id)
         {
             using (var context = new WebShopEntities())
@@ -63,6 +68,7 @@ namespace WebShop.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(ArticleViewModel model)
         {
             using (var context = new WebShopEntities())
@@ -75,6 +81,8 @@ namespace WebShop.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             using (var context = new WebShopEntities())

@@ -208,6 +208,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\ArticlesController.cs" />
     <Compile Include="ApiControllers\CategoriesController.cs" />
     <Compile Include="ApiControllers\SubCategoriesController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -228,8 +229,10 @@
     <Compile Include="Helpers\AjaxSelectHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArticleViewModel.cs" />
+    <Compile Include="Models\CommandeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PanierViewModel.cs" />
     <Compile Include="Models\SelectListItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session\UserInfo.cs" />
@@ -544,10 +547,10 @@
     <Content Include="Views\Articles\Edit.cshtml" />
     <Content Include="Views\Articles\Detail.cshtml" />
     <Content Include="Views\Articles\Create.cshtml" />
+    <Content Include="Views\Panier\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Panier\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
