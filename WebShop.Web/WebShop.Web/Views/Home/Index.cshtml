@@ -3,7 +3,6 @@
 @using WebShop.Web.Helpers
 @using WebShop.Web.Session
 @model IQueryable<WebShop.Domain.Article>
-@ViewBag.
 
 @{
     ViewBag.Title = "Home Page";
@@ -19,30 +18,11 @@
         </div>
     </div>
 }
-    @*<div class="form-group">
-                <label class="control-label col-md-2">Catégorie</label>
-                <div class="col-md-4">
-                    @Html.AjaxSelect( ViewBag.listeCat, "/api/Categories/GetSelectList")
-                </div>
-                <div class="col-md-6">
-                    @Html.ValidationMessageFor(model => model.CategoryId)
-                </div>
-            </div>
-            <div class="form-group">
-        <label class="control-label col-md-2">Sous-catégorie</label>
-            <div class="col-md-4">
-                @Html.AjaxSelectFor(model => model., model => model.CategoryId, "/api/SubCategories/GetSelectList", true)
-            </div>
-            <div class="col-md-6">
-                @Html.ValidationMessageFor(model => model.Article.ART_SCAT_Id)
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-4">
-                <input type="submit" class="btn btn-primary" value="search" />
-            </div>
-        </div>*@
-
+<div class="row">
+    <div class="col-xs-2 cat">Catégories :</div>
+    <div class="col-xs-2">@Html.AjaxSelect("Categorie", "/api/Categories/GetSelectList", string.Empty, true)</div>
+    <div class="col-xs-2">@Html.AjaxSelect("SousCategorie", "/api/SubCategories/GetSelectList", string.Empty, "Categorie", true)</div>
+</div>
     <div class="table-responsive">
         @Html.Grid(Model).Columns(col =>
    {
@@ -61,16 +41,14 @@
        col.Add()
            .Sanitized(false)
            .Encoded(false)
-           .RenderValueAs(model => Html.ActionLink("Détails", "Detail", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-primary" }))
-           .SetWidth(80);
+          .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Detail\">Détails</a>").SetWidth(80);
        if (true)
        //if (UserInfo.IsAdmin())
        {
            col.Add()
                .Sanitized(false)
                .Encoded(false)
-               .RenderValueAs(model => Html.ActionLink("Modifier", "Edit", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-primary" }))
-               .SetWidth(80);
+          .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Edit\">Modifier</a>").SetWidth(80);
            col.Add()
                .Sanitized(false)
                .Encoded(false)
@@ -97,16 +75,17 @@
 
 
 @section Scripts {
-
     <script>
         $(document)
             .ready(function() {
-                $(".detailsId")
+                $('[data-action]')
                     .click(function() {
                         //console.log("bouton create click");
+                        var id = $(this).attr('data-id');
+                        var action = $(this).attr('data-action');
                         $.ajax({
                             type: "GET",
-                            url: '@Url.Action("Detail", "Articles")',
+                            url: '/Articles/' + action + '/' + id,
                             success:
                                 function(data) {
                                     $("#myModalcontent").html(data);
@@ -115,5 +94,5 @@
                         });
                     });
             });
-    </script>
+</script>
 }

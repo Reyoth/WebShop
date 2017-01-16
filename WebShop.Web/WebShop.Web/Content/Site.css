@@ -22,7 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
-
+.filtre {
+    float: left;
+}
+.cat {
+    color: black;
+    font-size-adjust: 1;
+}
 .form-group label:after {
     content: ' :';
 }

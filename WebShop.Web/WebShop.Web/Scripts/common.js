@@ -5,8 +5,9 @@
         common.bindAjaxSelect();
     });
 
-    common.bindAjaxSelect = function () {
-        $('[data-toggle="ajaxSelect"]').each(function () {
+    common.bindAjaxSelect = function (parentSelector) {
+        var selector = parentSelector === undefined ? '[data-toggle="ajaxSelect"]' : parentSelector + ' [data-toggle="ajaxSelect"]'
+        $(selector).each(function () {
             common.clearSelect($(this));
         });
         $('[data-toggle="ajaxSelect"]').not('[data-cascade-from]').each(function () {
