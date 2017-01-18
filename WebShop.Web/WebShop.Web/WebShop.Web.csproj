@@ -236,7 +236,6 @@
     <Compile Include="Models\CommandeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PanierViewModel.cs" />
     <Compile Include="Models\SelectListItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session\Panier.cs" />
