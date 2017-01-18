@@ -25,17 +25,24 @@ namespace WebShop.Web
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                      "~/Scripts/DataTables/jquery.dataTables.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/GridMvc.css",
-                      "~/Content/site.css"));
+                      "~/Content/ladda-bootstrap/ladda-themeless.min.css",
+                      "~/Content/site.css",
+                      "~/Content/Datatables/css/jquery.dataTables.css"));
             //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
             //            "~/Scripts/jquery-{version}.js",
             //            "~/Scripts/jquery-ui.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/gridmvc").Include(
-                        "~/Scripts/gridmvc.min.js"));
+                        "~/Scripts/gridmvc.min.js",
+                        "~/Scripts/gridmvc-ext.js",
+                        "~/Scripts/ladda-bootstrap/ladda.min.js",
+                        "~/Scripts/ladda-bootstrap/spin.min.js"));
 
 
         }

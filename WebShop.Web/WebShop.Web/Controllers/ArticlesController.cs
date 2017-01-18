@@ -52,7 +52,7 @@ namespace WebShop.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public ViewResult Edit(int id)
+        public PartialViewResult Edit(int id)
         {
             using (var context = new WebShopEntities())
             {
@@ -62,7 +62,7 @@ namespace WebShop.Web.Controllers
                     Article = article,
                     CategoryId = article.SousCategorie.SCAT_CAT_Id
                 };
-                return View(model);
+                return PartialView(model);
             }
         }
 

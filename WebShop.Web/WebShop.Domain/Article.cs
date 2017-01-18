@@ -26,6 +26,7 @@ namespace WebShop.Domain
         public string ART_Description { get; set; }
         public decimal ART_Prix { get; set; }
         public int ART_Stock { get; set; }
+        public string ART_Image { get; set; }
     
         public virtual SousCategorie SousCategorie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

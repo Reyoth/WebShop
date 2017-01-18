@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using WebShop.Domain;
+using WebShop.Web.Session;
 
 namespace WebShop.Web.Controllers
 {
@@ -14,94 +15,42 @@ namespace WebShop.Web.Controllers
         // GET: Panier
         public ActionResult Index()
         {
-            ViewData["Message"] = "Mon panier";
-            var article = new Article();
-            DataTable dt = new DataTable("Mon Panier");
-            dt.Columns.Add(new DataColumn("Libelle", typeof(string)));
-            dt.Columns.Add(new DataColumn("Prix", typeof(string)));
-            dt.Columns.Add(new DataColumn("Quantité", typeof(string)));
-
-            for (int i = 0; i < 3; i++)
+            using (var context = new WebShopEntities())
             {
-                DataRow row = dt.NewRow();
-                row["Libelle"] = "Ca va etre chiant" + i;
-                row["Prix"] = "Ca va etre chiant" + i;
-                row["Quantité"] = "Ca va etre chiant" + i;
-                dt.Rows.Add(row);
-            }
-            return View(dt);
-        }
+                var panier = Panier.GetPanier();
+                var ids = panier.Select(kvp => kvp.Key);
+                var data = context.Articles
+                    .Where(a => ids.Contains(a.ART_Id))
+                    .ToList();
+                DataTable dt = new DataTable("Mon Panier");
+                dt.Columns.Add(new DataColumn("Id", typeof(string)));
+                dt.Columns.Add(new DataColumn("Libelle", typeof(string)));
+                dt.Columns.Add(new DataColumn("Prix", typeof(string)));
+                dt.Columns.Add(new DataColumn("Quantité", typeof(string)));
+                foreach (var article in data)
+                {
+                    DataRow row = dt.NewRow();
+                    row["Id"] = article.ART_Id;
+                    row["Libelle"] = article.ART_Libelle;
+                    row["Prix"] = article.ART_Prix;
+                    row["Quantité"] = panier[article.ART_Id];
+                    dt.Rows.Add(row);
 
-        // GET: Panier/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Panier/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Panier/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                }
+                return View(dt);
             }
         }
 
-        // GET: Panier/Edit/5
-        public ActionResult Edit(int id)
+        public RedirectToRouteResult AddToPanier(int articleId)
         {
-            return View();
+            Panier.AddToPanier(articleId, 1);
+            return RedirectToAction("Index", "Panier");
         }
 
-        // POST: Panier/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public RedirectToRouteResult RemoveFromPanier(int articleId)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Panier/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Panier/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Panier.RemoveFromPanier(articleId, 1);
+            return RedirectToAction("Index", "Panier");
         }
     }
 }

@@ -12,14 +12,15 @@ namespace WebShop.Web.ApiControllers
 {
     public class ArticlesController : ApiController
     {
-        public object Search(int categoryId, int subCategoryId)
+        public object GetArticles(int categoryId, int subCategoryId)
         {
             var context = new WebShopEntities();
             var articles = context.Articles
                 .Include(a => a.SousCategorie)
                 .Where(a => (a.ART_SCAT_Id == subCategoryId || subCategoryId == -2)
-                            && (a.SousCategorie.SCAT_CAT_Id == categoryId || categoryId == -2));
-            return articles;
+                            && (a.SousCategorie.SCAT_CAT_Id == categoryId || categoryId == -2))
+                .ToList();
+            return new { success = true, data = articles };
         }
     }
 }

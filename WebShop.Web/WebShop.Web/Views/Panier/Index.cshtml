@@ -6,24 +6,30 @@
 }
 
 <h2>View</h2>
-<table border="1" cellpadding="5">
-    <thead>
-        <tr>
-            @foreach (System.Data.DataColumn col in Model.Columns)
-            {
-                <th>@col.Caption</th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (System.Data.DataRow row in Model.Rows)
-        {
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                @foreach (var cell in row.ItemArray)
-                {
-                    <td>@cell.ToString()</td>
+                @foreach (System.Data.DataColumn col in Model.Columns)
+            {
+                    <th>@col.Caption</th>
                 }
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (System.Data.DataRow row in Model.Rows)
+            {
+                <tr>
+                    @foreach (var cell in row.ItemArray)
+                {
+                        <td>@cell.ToString()</td>
+                    }
+                    <td><a class="btn btn-primary btn-xs" href="/Panier/AddToPanier?articleId=@row["Id"]"><span class="glyphicon glyphicon-plus"></span></a></td>
+                    <td><a class="btn btn-danger btn-xs" href="/Panier/RemoveFromPanier?articleId=@row["Id"]"><span class="glyphicon glyphicon-minus"></span></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

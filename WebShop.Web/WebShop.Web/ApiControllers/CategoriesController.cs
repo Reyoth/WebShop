@@ -11,7 +11,7 @@ namespace WebShop.Web.ApiControllers
 {
     public class CategoriesController : ApiController
     {
-        public object GetSelectList(bool withEmpty = false, bool withAll = false)
+        public object GetSelectList(bool withEmpty = true, bool withAll = true)
         {
             using (var context = new WebShopEntities())
             {
@@ -24,8 +24,8 @@ namespace WebShop.Web.ApiControllers
                     .ToList();
 
                 var data = new List<SelectListItemModel>();
-                if (withEmpty) data.Add(new SelectListItemModel { Id = string.Empty, Value = "-1" });
-                if (withAll) data.Add(new SelectListItemModel { Id = "Tous", Value = "-2" });
+                if (withEmpty) data.Add(new SelectListItemModel { Id = "-1", Value = "" });
+                if (withAll) data.Add(new SelectListItemModel { Id = "-2", Value = "--Tous--" });
                 data.AddRange(categories);
 
                 return new

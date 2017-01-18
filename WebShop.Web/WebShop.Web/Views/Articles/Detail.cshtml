@@ -10,14 +10,14 @@
 <h2>Detail de l'article @Model.Article.ART_Libelle</h2>
 <h3>Catégorie : @Model.Category > @Model.Article.SousCategorie.SCAT_Libelle</h3>
 
-
-<div>Article</div>   
+<img src="@Model.Article.ART_Image" class="imageDetail"></>
+<h4>Article</h4>   
 <div>@Model.Article.ART_Libelle</div>
-<div>Description</div>
+<h4>Description</h4>
 <div>@Model.Article.ART_Description</div>
-<div>prix</div>
+<h4>prix</h4>
 <div>@Model.Article.ART_Prix</div>
-<div>Stock</div>
+<h4>Stock</h4>
 <div>@Model.Article.ART_Stock</div>
             
-<div class="btn btn-primary">Ajouter au panier</div>
+<a class="btn btn-primary" href="/Panier/AddToPanier?articleId=@Model.Article.ART_Id">Ajouter au panier</a>

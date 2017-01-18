@@ -1,0 +1,41 @@
+﻿@using Grid.Mvc.Ajax.GridExtensions
+@using WebShop.Domain
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model AjaxGrid<Article>
+
+<div class="table-responsive">
+    @Html.Grid(Model).Columns(col =>
+{
+    col.Add(model => model.ART_Libelle)
+        .Titled("Article")
+        .Filterable(true)
+        .Sortable(true);
+    col.Add(model => model.ART_Prix)
+        .Titled("Prix")
+        .Filterable(true)
+        .Sortable(true);
+    col.Add(model => model.ART_Stock)
+        .Titled("Stock")
+        .Filterable(true)
+        .Sortable(true);
+    col.Add()
+        .Sanitized(false)
+        .Encoded(false)
+        .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Detail\">Détails</a>").SetWidth(80);
+    if (true)
+    //if (UserInfo.IsAdmin())
+    {
+        col.Add()
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Edit\">Modifier</a>").SetWidth(80);
+        col.Add()
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(model => Html.ActionLink("Supprimer", "Delete", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-danger" }))
+            .SetWidth(80);
+    }
+}).EmptyText("rien").Sortable(true).Filterable(true).WithPaging(10)
+
+</div>

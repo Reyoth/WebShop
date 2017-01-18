@@ -34,7 +34,7 @@
     <div class="form-group">
         <label class="control-label col-md-2">Prix</label>
         <div class="col-md-4">
-            @Html.TextAreaFor(model => model.Article.ART_Prix, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.Article.ART_Prix, new { @class = "form-control" })
         </div>
         <div class="col-md-6">
             @Html.ValidationMessageFor(model => model.Article.ART_Prix)
@@ -43,10 +43,19 @@
     <div class="form-group">
         <label class="control-label col-md-2">Stock</label>
         <div class="col-md-4">
-            @Html.TextAreaFor(model => model.Article.ART_Stock, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.Article.ART_Stock, new { @class = "form-control" })
         </div>
         <div class="col-md-6">
             @Html.ValidationMessageFor(model => model.Article.ART_Stock)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Image Url</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.Article.ART_Image, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.Article.ART_Image)
         </div>
     </div>
     <div class="form-group">
