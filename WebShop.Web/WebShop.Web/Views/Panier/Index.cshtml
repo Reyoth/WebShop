@@ -2,38 +2,39 @@
 @model DataTable
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Panier";
 }
 
 <h2>View</h2>
 <div class="table-responsive">
     <table class="table display" id="panier">
         <thead>
-            <tr>
-                @foreach (System.Data.DataColumn col in Model.Columns)
+        <tr>
+            @foreach (System.Data.DataColumn col in Model.Columns)
             {
-                    <th>@col.Caption</th>
-                }
-                <th id="total">Total</th>
-                <th></th>
-            </tr>
+                <th>@col.Caption</th>
+            }
+            <th id="total">Total</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (System.Data.DataRow row in Model.Rows)
-            {
-                <tr>
-                    @foreach (var cell in row.ItemArray)
+        @foreach (System.Data.DataRow row in Model.Rows)
+        {
+            <tr>
+                @foreach (var cell in row.ItemArray)
                 {
-                        <td>@cell.ToString()</td>
-                    }
-                    <td></td>
-                    <td><a class="btn btn-primary btn-xs" href="/Panier/AddToPanier?articleId=@row["Id"]"><span class="glyphicon glyphicon-plus"></span></a>
-                    <a class="btn btn-danger btn-xs" href="/Panier/RemoveFromPanier?articleId=@row["Id"]"><span class="glyphicon glyphicon-minus"></span></a></td>
-                </tr>
-            }
+                    <td>@cell.ToString()</td>
+                }
+                <td></td>
+                <td><a class="btn btn-primary btn-xs" href="/Panier/AddToPanier?articleId=@row["Id"]" onclick="plus()"><span class="glyphicon glyphicon-plus"></span></a>
+                    <a class="btn btn-danger btn-xs" href="/Panier/RemoveFromPanier?articleId=@row["Id"]" onclick="moins()"><span class="glyphicon glyphicon-minus"></span></a></td>
+            </tr>
+        }
         </tbody>
     </table>
 </div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/datatables")
     <script>
@@ -52,5 +53,25 @@
             }
                 ]
             });
+
+
+            function plus(quantite) {
+                // récupérer la valeur
+                var ponder = quantite.val();
+                // l'augmenter
+                ponder++;
+                // affecter la nouvelle valeur
+                quantite.val(ponder);
+            }
+            function moins(quantite) {
+                // récupérer la valeur
+                var ponder = quantite.val();
+                // l'augmenter
+                ponder++;
+                // affecter la nouvelle valeur
+                quantite.val(ponder);
+            }
         });
+
+
     </script> }

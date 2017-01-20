@@ -224,6 +224,7 @@
     <Compile Include="Attributes\AdminOnlyAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="Controllers\CommandeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PanierController.cs" />
@@ -568,6 +569,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Commande\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

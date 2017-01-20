@@ -52,5 +52,9 @@ namespace WebShop.Web.Controllers
             Panier.RemoveFromPanier(articleId, 1);
             return RedirectToAction("Index", "Panier");
         }
+        public ActionResult CommanderPanier()
+        {
+            return null;
+        }
     }
 }
