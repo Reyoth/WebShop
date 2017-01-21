@@ -7,21 +7,22 @@
 @{
     ViewBag.Title = "Detail";
 }
+<div style="padding-left: 30px; padding-bottom: 30px">
+    <h2>Detail de l'article @Model.Article.ART_Libelle</h2>
+    <h3>Catégorie : @Model.Category > @Model.Article.SousCategorie.SCAT_Libelle</h3>
 
-<h2>Detail de l'article @Model.Article.ART_Libelle</h2>
-<h3>Catégorie : @Model.Category > @Model.Article.SousCategorie.SCAT_Libelle</h3>
+    <img src="@Model.Article.ART_Image" class="imageDetail"></>
+    <h4>Article</h4>
+    <div>@Model.Article.ART_Libelle</div>
+    <h4>Description</h4>
+    <div>@Model.Article.ART_Description</div>
+    <h4>prix</h4>
+    <div>@Model.Article.ART_Prix</div>
+    <h4>Stock</h4>
+    <div>@Model.Article.ART_Stock</div>
 
-<img src="@Model.Article.ART_Image" class="imageDetail"></>
-<h4>Article</h4>   
-<div>@Model.Article.ART_Libelle</div>
-<h4>Description</h4>
-<div>@Model.Article.ART_Description</div>
-<h4>prix</h4>
-<div>@Model.Article.ART_Prix</div>
-<h4>Stock</h4>
-<div>@Model.Article.ART_Stock</div>
-
-@if (!UserInfo.IsAdmin())
-{
-    <a class="btn btn-primary" href="/Panier/AddToPanier?articleId=@Model.Article.ART_Id">Ajouter au panier</a>
-}
+    @if (!UserInfo.IsAdmin())
+    {
+        <a class="btn btn-primary" href="/Panier/AddToPanier?articleId=@Model.Article.ART_Id">Ajouter au panier</a>
+    }
+</div>

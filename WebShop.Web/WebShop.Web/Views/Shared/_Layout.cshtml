@@ -27,7 +27,11 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     @if (!UserInfo.IsAdmin())
                     {
-                        <li>@Html.ActionLink("Mon Panier", "Index", "Panier")</li>
+                        <li>@Html.ActionLink(" ", "Index", "Panier",null,new {@class="glyphicon glyphicon-shopping-cart"})</li>
+                    }
+                    @if (UserInfo.IsAdmin() || UserInfo.IsClient())
+                    {
+                        <li>@Html.ActionLink(" ", "Index", "Commande", null, new { @class = "glyphicon glyphicon-list" })</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
