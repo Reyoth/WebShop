@@ -24,7 +24,8 @@ namespace WebShop.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bootstrap-datepicker.js"));
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
                       "~/Scripts/DataTables/jquery.dataTables.js"));
 
@@ -33,7 +34,8 @@ namespace WebShop.Web
                       "~/Content/GridMvc.css",
                       "~/Content/ladda-bootstrap/ladda-themeless.min.css",
                       "~/Content/site.css",
-                      "~/Content/Datatables/css/jquery.dataTables.css"));
+                      "~/Content/Datatables/css/jquery.dataTables.css",
+                      "~/Content/gridmvc.datepicker.min.css"));
             //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
             //            "~/Scripts/jquery-{version}.js",
             //            "~/Scripts/jquery-ui.min.js"));

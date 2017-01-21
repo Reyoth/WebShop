@@ -10,22 +10,13 @@
 }
 
 
-@*@if (UserInfo.IsAdmin())*@
-@if (true)
-{
-    <div class="row">
-        <div class="col-xs-1 col-lg-offset-11">
-            @Html.ActionLink("Ajouter un article", "Create", "Articles", null, new { @class = "btn btn-primary right" })
-        </div>
-    </div>
-}
+
 <div class="row">
     <div class="col-xs-2 cat">Catégories :</div>
     <div class="col-xs-2">@Html.AjaxSelect("Categorie", "/api/Categories/GetSelectList", string.Empty, false, true)</div>
     <div class="col-xs-2">@Html.AjaxSelect("SousCategorie", "/api/SubCategories/GetSelectList", string.Empty, "Categorie", false, true)</div>
     <div class="col-xs-2"><a class="btn btn-primary" id="search">Search</a></div>
 </div>
-@*@Html.Partial("_ArticleGridPartial")*@
 <div class="table-responsive" id="tableau">
     @Html.Grid(Model).Columns(col =>
 {
@@ -51,19 +42,8 @@ col.Add()
             .Sanitized(false)
             .Encoded(false)
             .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Detail\">Détails</a>").SetWidth(80);
-        if (true)
-        //if (UserInfo.IsAdmin())
-        {
-            col.Add()
-                .Sanitized(false)
-                .Encoded(false)
-                .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Edit\">Modifier</a>").SetWidth(80);
-            col.Add()
-                .Sanitized(false)
-                .Encoded(false)
-                .RenderValueAs(model => Html.ActionLink("Supprimer", "Delete", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-danger" }))
-                .SetWidth(80);
-        }
+
+           
     }).EmptyText("rien").Sortable(true).Filterable(true).WithPaging(10)
 
 </div>
@@ -85,87 +65,5 @@ col.Add()
 
 
 @section Scripts {
-    <script>
-    $(document)
-        .ready(function() {
-            $('[data-action]')
-                    .click(function() {
-                        //console.log("bouton create click");
-                        var id = $(this).attr('data-id');
-                        var action = $(this).attr('data-action');
-                        $.ajax({
-                            type: "GET",
-                            url: '/Articles/' + action + '/' + id,
-                            success:
-                                function(data) {
-                                    $("#myModalcontent").html(data);
-                                    $("#myModal").modal("show");
-                                }
-                        });
-                    }),
-                $("#search")
-                    .click(function() {
-                        //console.log("bouton create click");
-                        $.ajax({
-                            type: "GET",
-                            url: '/Home/Search/?categoryId=' +
-                                $('#Categorie').val() +
-                                '&subCategoryId=' +
-                                $('#SousCategorie').val(),
-                            //url: Url.Action("Search","Articles"),
-
-                            success: function(response) {
-                                //var articles;
-                                //$('#tableau').html("") ;
-                                var trHtml = '';
-                                $.each(response,
-                                    function(i, item) {
-                                        trHtml += '<tr><td>' +
-                                            item.ART_Photo +
-                                            '</td><td>' +
-                                            item.ART_Libelle +
-                                            '</td><td>' +
-                                            item.ART_Description +
-                                            '</td><td>' +
-                                            item.ART_Prix +
-                                            '</td><td>' +
-                                            item.ART_Stock +
-                                            '</td><td>' +
-                                            item.ART_SCAT_Id +
-                                            '</td></tr>';
-                                    });
-                                $('#tableau').append(trHtml);
-                            }
-                        });
-                    }),
-                $(document)
-                    .on('click',
-                        "#btnCreateModal",
-                        function() {
-                            //console.log("bouton create modal click");
-                            $.ajax({
-                                type: "POST",
-                                url: '@Url.Action("Create", "Personne")',
-                                data: $("#frmCreate").serialize(),
-                                success:
-                                    function(data) {
-                                        if (data.result == "ok") {
-                                            $("#myModal").modal("hide");
-                                            location.reload();
-                                        } else {
-                                            $("#myModalcontent").html(data);
-                                            $("#myModal").modal("show");
-                                        }
-                                    }
-                            });
-                        });
-        })
-
-    </script>
+    <script src="/Scripts/PageScripts/home.js"></script>
 }
-@*//pageGrids.myGrid.ajaxify({
-    //    getPagedData: '/Home/Articles',
-    //    getData: '/Home/ArticlesPaged',
-    //    gridFilterForm: $("#gridFilters")
-    //});
-    //});*@

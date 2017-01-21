@@ -234,12 +234,12 @@
     <Compile Include="Helpers\AjaxSelectHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArticleViewModel.cs" />
-    <Compile Include="Models\CommandeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SelectListItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session\Panier.cs" />
+    <Compile Include="Session\SearchMemory.cs" />
     <Compile Include="Session\UserInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -518,6 +518,8 @@
     <Content Include="Scripts\ladda-bootstrap\ladda.min.js" />
     <Content Include="Scripts\ladda-bootstrap\spin.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\PageScripts\home.js" />
+    <Content Include="Scripts\PageScripts\homeAdmin.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -566,6 +568,8 @@
     <Content Include="Views\Panier\Index.cshtml" />
     <Content Include="Views\Shared\_AjaxGridPager.cshtml" />
     <Content Include="Views\Shared\_ArticleGridPartial.cshtml" />
+    <Content Include="Views\Panier\CommanderPanier.cshtml" />
+    <Content Include="Views\Home\IndexAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

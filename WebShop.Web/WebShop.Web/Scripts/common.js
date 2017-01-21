@@ -2,16 +2,20 @@
 
 $(document).ready(function () {
     common.bindAjaxSelect();
+    common.bindDatePickers();
 });
 
 common.bindAjaxSelect = function (parentSelector) {
-    var selector = parentSelector === undefined ? '[data-toggle="ajaxSelect"]' : parentSelector + ' [data-toggle="ajaxSelect"]'
+    var selector = parentSelector === undefined
+        ? '[data-toggle="ajaxSelect"]'
+        : parentSelector + ' [data-toggle="ajaxSelect"]';
     $(selector).each(function () {
         common.clearSelect($(this));
     });
     $('[data-toggle="ajaxSelect"]').not('[data-cascade-from]').each(function () {
         common.fillAjaxSelect($(this));
         $(this).on('change', function () {
+            sessionStorage.setItem($(this).attr('id'), $(this).val());
             common.bindAjaxSelectCascade('#' + $(this).attr('id'));
         });
     });
@@ -22,6 +26,7 @@ common.bindAjaxSelectCascade = function (selector) {
         common.fillAjaxSelect($(this), selector);
         $(this).unbind('change');
         $(this).on('change', function () {
+            sessionStorage.setItem($(this).attr('id'), $(this).val());
             common.bindAjaxSelectCascade('#' + $(this).attr('id'));
         });
         //if (callback !== undefined)
@@ -36,6 +41,7 @@ common.fillAjaxSelect = function (select, cascadeFromSelector) {
     var selectedId = select.attr('data-selected-id');
     var parentId = $(cascadeFromSelector).val();
     var emptyCheck = withEmpty ? 1 : 0;
+    var fillCascade = false;
 
     $('[data-toggle="ajaxSelect"][data-cascade-from="#' + select.attr('id') + '"]').each(function () {
         common.clearSelect($(this));
@@ -52,6 +58,9 @@ common.fillAjaxSelect = function (select, cascadeFromSelector) {
                 $.each(response.Data, function (key, item) {
                     if (selectedId !== undefined && item.Id === selectedId) {
                         options.push('<option value="' + item.Id + '" selected>' + item.Value + '</option>');
+                    } else if (sessionStorage.getItem(select.attr('id')) === item.Id) {
+                        options.push('<option value="' + item.Id + '" selected>' + item.Value + '</option>');
+                        fillCascade = true;
                     } else {
                         options.push('<option value="' + item.Id + '">' + item.Value + '</option>');
                     }
@@ -59,7 +68,7 @@ common.fillAjaxSelect = function (select, cascadeFromSelector) {
                 select.html(options.join(''));
                 select.enable();
 
-                if (selectedId !== undefined && selectedId !== '') {
+                if ((selectedId !== undefined && selectedId !== '') || fillCascade) {
                     common.bindAjaxSelectCascade('#' + controlId);
                 }
             } else {
@@ -78,6 +87,14 @@ common.clearSelect = function (select) {
     $('[data-toggle="ajaxSelect"][data-cascade-from="' + select.attr('id') + '"]').each(function () {
         common.clearSelect($(this));
     });
+};
+
+common.bindDatePickers = function() {
+    $('.datepicker').datepicker({
+        language: 'fr-FR',
+        format: 'dd/mm/yyyy'
+    });
+    $('.datepicker').val($('.datepicker').val().replaceAll('-', '/'));
 };
 
 //var search = {};
@@ -120,4 +137,13 @@ $.fn.enable = function () {
     this.prop('disabled', false)
         .removeClass('disabled');
     return this;
+};
+
+/*=============================*/
+/*=== Javascript extensions ===*/
+/*=============================*/
+
+// ReSharper disable once NativeTypePrototypeExtending
+String.prototype.replaceAll = function(searchValue, replaceValue) {
+    return this.split(searchValue).join(replaceValue);
 };

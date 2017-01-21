@@ -108,7 +108,8 @@
           <Property Name="COM_CLI_Id" Type="int" Nullable="false" />
           <Property Name="COM_Date" Type="datetime" Nullable="false" />
           <Property Name="COM_Statut" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="COM_DateLivraison" Type="datetime" Nullable="false" />
+          <Property Name="COM_DateLivDesiree" Type="datetime" Nullable="false" />
+          <Property Name="COM_DateLivraison" Type="datetime" />
           <Property Name="COM_Nom" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="COM_Prenom" Type="varchar" MaxLength="50" />
           <Property Name="COM_Civilite" Type="varchar" MaxLength="50" Nullable="false" />
@@ -459,25 +460,7 @@
           <Property Name="CLI_Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CLI_NetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Client_AspNetUsers" FromRole="Client" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Commandes" Relationship="Self.FK_Commande_Client" FromRole="Client" ToRole="Commande" />
-        </EntityType>
-        <EntityType Name="Commande">
-          <Key>
-            <PropertyRef Name="COM_Id" />
-          </Key>
-          <Property Name="COM_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COM_CLI_Id" Type="Int32" Nullable="false" />
-          <Property Name="COM_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="COM_Statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="COM_DateLivraison" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="COM_Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="COM_Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="COM_Civilite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="COM_Adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="COM_CodePostal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="COM_Ville" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Commande_Client" FromRole="Commande" ToRole="Client" />
-          <NavigationProperty Name="DetailCommandes" Relationship="Self.FK_DetailCommande_Commande" FromRole="Commande" ToRole="DetailCommande" />
+          <NavigationProperty Name="Commandes" Relationship="WebShopModel.FK_Commande_Client" FromRole="Client" ToRole="Commande" />
         </EntityType>
         <EntityType Name="DetailCommande">
           <Key>
@@ -489,7 +472,7 @@
           <Property Name="DCOM_Quantite" Type="Int32" Nullable="false" />
           <Property Name="DCOM_PrixUnitaire" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <NavigationProperty Name="Article" Relationship="Self.FK_DetailCommande_Article" FromRole="DetailCommande" ToRole="Article" />
-          <NavigationProperty Name="Commande" Relationship="Self.FK_DetailCommande_Commande" FromRole="DetailCommande" ToRole="Commande" />
+          <NavigationProperty Name="Commande" Relationship="WebShopModel.FK_DetailCommande_Commande" FromRole="DetailCommande" ToRole="Commande" />
         </EntityType>
         <EntityType Name="SousCategorie">
           <Key>
@@ -587,30 +570,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Commande_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Commande" Type="Self.Commande" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="CLI_Id" />
-            </Principal>
-            <Dependent Role="Commande">
-              <PropertyRef Name="COM_CLI_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DetailCommande_Commande">
-          <End Role="Commande" Type="Self.Commande" Multiplicity="1" />
-          <End Role="DetailCommande" Type="Self.DetailCommande" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Commande">
-              <PropertyRef Name="COM_Id" />
-            </Principal>
-            <Dependent Role="DetailCommande">
-              <PropertyRef Name="DCOM_COM_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
@@ -624,7 +583,6 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="Categories" EntityType="Self.Categorie" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
-          <EntitySet Name="Commandes" EntityType="Self.Commande" />
           <EntitySet Name="DetailCommandes" EntityType="Self.DetailCommande" />
           <EntitySet Name="SousCategories" EntityType="Self.SousCategorie" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
@@ -651,14 +609,6 @@
           <AssociationSet Name="FK_SousCategorie_Categorie" Association="Self.FK_SousCategorie_Categorie">
             <End Role="Categorie" EntitySet="Categories" />
             <End Role="SousCategorie" EntitySet="SousCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Commande_Client" Association="Self.FK_Commande_Client">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="Commande" EntitySet="Commandes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DetailCommande_Commande" Association="Self.FK_DetailCommande_Commande">
-            <End Role="Commande" EntitySet="Commandes" />
-            <End Role="DetailCommande" EntitySet="DetailCommandes" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -694,6 +644,15 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Commandes" EntityType="WebShopModel.Commande" />
+          <AssociationSet Name="FK_Commande_Client" Association="WebShopModel.FK_Commande_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Commande" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailCommande_Commande" Association="WebShopModel.FK_DetailCommande_Commande">
+            <End Role="Commande" EntitySet="Commandes" />
+            <End Role="DetailCommande" EntitySet="DetailCommandes" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -706,6 +665,49 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Commande">
+          <Key>
+            <PropertyRef Name="COM_Id" />
+          </Key>
+          <Property Name="COM_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COM_CLI_Id" Type="Int32" Nullable="false" />
+          <Property Name="COM_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="COM_Statut" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COM_DateLivDesiree" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="COM_DateLivraison" Type="DateTime" Precision="3" />
+          <Property Name="COM_Nom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COM_Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COM_Civilite" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COM_Adresse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COM_CodePostal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COM_Ville" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client" Relationship="WebShopModel.FK_Commande_Client" FromRole="Commande" ToRole="Client" />
+          <NavigationProperty Name="DetailCommandes" Relationship="WebShopModel.FK_DetailCommande_Commande" FromRole="Commande" ToRole="DetailCommande" />
+        </EntityType>
+        <Association Name="FK_Commande_Client">
+          <End Type="WebShopModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="WebShopModel.Commande" Role="Commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="CLI_Id" />
+            </Principal>
+            <Dependent Role="Commande">
+              <PropertyRef Name="COM_CLI_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailCommande_Commande">
+          <End Type="WebShopModel.Commande" Role="Commande" Multiplicity="1" />
+          <End Type="WebShopModel.DetailCommande" Role="DetailCommande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commande">
+              <PropertyRef Name="COM_Id" />
+            </Principal>
+            <Dependent Role="DetailCommande">
+              <PropertyRef Name="DCOM_COM_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -804,23 +806,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Commandes">
-            <EntityTypeMapping TypeName="WebShopModel.Commande">
-              <MappingFragment StoreEntitySet="Commande">
-                <ScalarProperty Name="COM_Id" ColumnName="COM_Id" />
-                <ScalarProperty Name="COM_CLI_Id" ColumnName="COM_CLI_Id" />
-                <ScalarProperty Name="COM_Date" ColumnName="COM_Date" />
-                <ScalarProperty Name="COM_Statut" ColumnName="COM_Statut" />
-                <ScalarProperty Name="COM_DateLivraison" ColumnName="COM_DateLivraison" />
-                <ScalarProperty Name="COM_Nom" ColumnName="COM_Nom" />
-                <ScalarProperty Name="COM_Prenom" ColumnName="COM_Prenom" />
-                <ScalarProperty Name="COM_Civilite" ColumnName="COM_Civilite" />
-                <ScalarProperty Name="COM_Adresse" ColumnName="COM_Adresse" />
-                <ScalarProperty Name="COM_CodePostal" ColumnName="COM_CodePostal" />
-                <ScalarProperty Name="COM_Ville" ColumnName="COM_Ville" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DetailCommandes">
             <EntityTypeMapping TypeName="WebShopModel.DetailCommande">
               <MappingFragment StoreEntitySet="DetailCommande">
@@ -884,6 +869,24 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="WebShopModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="WebShopModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Commandes">
+            <EntityTypeMapping TypeName="WebShopModel.Commande">
+              <MappingFragment StoreEntitySet="Commande">
+                <ScalarProperty Name="COM_Ville" ColumnName="COM_Ville" />
+                <ScalarProperty Name="COM_CodePostal" ColumnName="COM_CodePostal" />
+                <ScalarProperty Name="COM_Adresse" ColumnName="COM_Adresse" />
+                <ScalarProperty Name="COM_Civilite" ColumnName="COM_Civilite" />
+                <ScalarProperty Name="COM_Prenom" ColumnName="COM_Prenom" />
+                <ScalarProperty Name="COM_Nom" ColumnName="COM_Nom" />
+                <ScalarProperty Name="COM_DateLivraison" ColumnName="COM_DateLivraison" />
+                <ScalarProperty Name="COM_DateLivDesiree" ColumnName="COM_DateLivDesiree" />
+                <ScalarProperty Name="COM_Statut" ColumnName="COM_Statut" />
+                <ScalarProperty Name="COM_Date" ColumnName="COM_Date" />
+                <ScalarProperty Name="COM_CLI_Id" ColumnName="COM_CLI_Id" />
+                <ScalarProperty Name="COM_Id" ColumnName="COM_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

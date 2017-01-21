@@ -1,0 +1,121 @@
+﻿@using WebShop.Web.Session
+@model WebShop.Domain.Commande
+
+@{
+    ViewBag.Title = "CommandePanier";
+    var panierDetails = Panier.GetPanierDetails();
+}
+
+<h2>Validation de la commande</h2>
+
+@using (Html.BeginForm("CommanderPanier", "Panier", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.COM_CLI_Id)
+    <div class="form-group">
+        @Html.LabelFor(model => model.COM_Nom, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.COM_Nom, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.COM_Nom)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Prénom</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.COM_Prenom, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.COM_Prenom)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Civilité</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.COM_Civilite, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.COM_Civilite)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Adresse</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.COM_Adresse, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.COM_Adresse)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Code Postal</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.COM_CodePostal, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.COM_CodePostal)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Ville</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.COM_Ville, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.COM_Ville)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3">Date de livraison désirée</label>
+        <div class="col-md-3">
+            @Html.TextBoxFor(model => model.COM_DateLivDesiree, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
+            <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+            </span>
+        </div>
+        <div class="col-md-6">
+            @Html.ValidationMessageFor(model => model.COM_DateLivDesiree)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+            <input type="submit" value="Valider ma commande !" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+<h2>Détail du panier</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Libellé</th>
+            <th>Prix unitaire</th>
+            <th>Quantité</th>
+            <th>Prix total</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var kvp in panierDetails)
+        {
+            <tr>
+                <td>@kvp.Key.ART_Libelle</td>
+                <td>@kvp.Key.ART_Prix</td>
+                <td>@kvp.Value</td>
+                <td>@(kvp.Key.ART_Prix * kvp.Value)</td>
+            </tr>
+        }
+        </tbody>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align: right;">TOTAL :</td>
+            <td>@(panierDetails.Sum(kvp => kvp.Key.ART_Prix * kvp.Value))</td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

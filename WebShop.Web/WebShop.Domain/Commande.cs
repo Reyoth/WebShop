@@ -24,7 +24,8 @@ namespace WebShop.Domain
         public int COM_CLI_Id { get; set; }
         public System.DateTime COM_Date { get; set; }
         public string COM_Statut { get; set; }
-        public System.DateTime COM_DateLivraison { get; set; }
+        public System.DateTime COM_DateLivDesiree { get; set; }
+        public Nullable<System.DateTime> COM_DateLivraison { get; set; }
         public string COM_Nom { get; set; }
         public string COM_Prenom { get; set; }
         public string COM_Civilite { get; set; }

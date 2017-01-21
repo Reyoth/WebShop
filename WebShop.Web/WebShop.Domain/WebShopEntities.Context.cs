@@ -35,10 +35,10 @@ namespace WebShop.Domain
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Categorie> Categories { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
-        public virtual DbSet<Commande> Commandes { get; set; }
         public virtual DbSet<DetailCommande> DetailCommandes { get; set; }
         public virtual DbSet<SousCategorie> SousCategories { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Commande> Commandes { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

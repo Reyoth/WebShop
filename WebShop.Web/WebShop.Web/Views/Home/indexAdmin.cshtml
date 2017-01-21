@@ -1,0 +1,83 @@
+﻿@using System.Collections.ObjectModel
+@using GridMvc
+@using GridMvc.Html
+@using WebShop.Web.Helpers
+@using WebShop.Web.Session
+@model IQueryable<WebShop.Domain.Article>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+    <div class="row">
+        <div class="col-xs-1 col-lg-offset-11">
+            @Html.ActionLink("Ajouter un article", "Create", "Articles", null, new { @class = "btn btn-primary right" })
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-xs-2 cat">Catégories :</div>
+    <div class="col-xs-2">@Html.AjaxSelect("Categorie", "/api/Categories/GetSelectList", string.Empty, false, true)</div>
+    <div class="col-xs-2">@Html.AjaxSelect("SousCategorie", "/api/SubCategories/GetSelectList", string.Empty, "Categorie", false, true)</div>
+    <div class="col-xs-2"><a class="btn btn-primary" id="search">Search</a></div>
+</div>
+<div class="table-responsive" id="tableau">
+    @Html.Grid(Model).Columns(col =>
+{
+    col.Add()
+        .Sanitized(false)
+    .Encoded(false)
+    .RenderValueAs(model => "<img src =\"" + model.ART_Image + "\" class=\"imageGrid \"/>")
+        .Titled("Image")
+        .SetWidth(100);
+    col.Add(model => model.ART_Libelle)
+        .Titled("Article")
+        .Filterable(true)
+        .Sortable(true);
+    col.Add(model => model.ART_Prix)
+        .Titled("Prix")
+        .Filterable(true)
+        .Sortable(true);
+    col.Add(model => model.ART_Stock)
+        .Titled("Stock")
+        .Filterable(true)
+        .Sortable(true);
+    col.Add()
+        .Sanitized(false)
+        .Encoded(false)
+        .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Detail\">Détails</a>").SetWidth(80);
+        col.Add()
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(model => "<a class=\"btn btn-sm btn-primary\" data-id=\"" + model.ART_Id + "\" data-action=\"Edit\">Modifier</a>").SetWidth(80);
+        col.Add()
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(model => Html.ActionLink("Supprimer", "Delete", "Articles", new { id = model.ART_Id }, new { @class = "btn btn-sm btn-danger" }))
+            .SetWidth(80);
+}).EmptyText("rien").Sortable(true).Filterable(true).WithPaging(10)
+
+</div>
+
+<p>
+    <a href="#" class="btn btn-primary btn-lg" id="btnCreate">Create</a>
+</p>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="myModalcontent">
+            <div class="modal-header"> Mon header </div>
+            <div class="modal-body"> Ceci est mon body </div>
+            <div class="modal-footer">
+                Mon footer <button data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="/Scripts/PageScripts/homeAdmin.js"></script>
+}
