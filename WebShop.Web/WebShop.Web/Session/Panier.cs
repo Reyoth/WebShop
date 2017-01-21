@@ -32,6 +32,11 @@ namespace WebShop.Web.Session
             return panierDetails;
         }
 
+        //public static int GetPanierTotal()
+        //{
+        //    var details = GetPanierDetails()
+        //}
+
         public static void AddToPanier(int articleId, int quantity)
         {
             var panier = GetPanier();

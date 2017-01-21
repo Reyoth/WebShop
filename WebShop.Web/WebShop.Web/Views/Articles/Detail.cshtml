@@ -1,5 +1,6 @@
 ﻿@using WebShop.Domain
 @using WebShop.Web.Helpers
+@using WebShop.Web.Session
 
 @model WebShop.Web.Models.ArticleViewModel
 
@@ -19,5 +20,8 @@
 <div>@Model.Article.ART_Prix</div>
 <h4>Stock</h4>
 <div>@Model.Article.ART_Stock</div>
-            
-<a class="btn btn-primary" href="/Panier/AddToPanier?articleId=@Model.Article.ART_Id">Ajouter au panier</a>
+
+@if (!UserInfo.IsAdmin())
+{
+    <a class="btn btn-primary" href="/Panier/AddToPanier?articleId=@Model.Article.ART_Id">Ajouter au panier</a>
+}

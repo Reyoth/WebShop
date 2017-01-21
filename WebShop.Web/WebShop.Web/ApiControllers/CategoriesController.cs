@@ -11,7 +11,7 @@ namespace WebShop.Web.ApiControllers
 {
     public class CategoriesController : ApiController
     {
-        public object GetSelectList(bool withEmpty = true, bool withAll = true)
+        public object GetSelectList(bool withEmpty, bool withAll)
         {
             using (var context = new WebShopEntities())
             {

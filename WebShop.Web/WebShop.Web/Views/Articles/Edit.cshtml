@@ -61,7 +61,7 @@
         <div class="form-group">
             <label class="control-label col-md-3">Catégorie</label>
             <div class="col-md-4">
-                @Html.AjaxSelectFor(model => model.CategoryId, "/api/Categories/GetSelectList", true)
+                @Html.AjaxSelectFor(model => model.CategoryId, "/api/Categories/GetSelectList")
             </div>
             <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.CategoryId)
@@ -70,7 +70,7 @@
         <div class="form-group">
             <label class="control-label col-md-3">Sous-catégorie</label>
             <div class="col-md-4">
-                @Html.AjaxSelectFor(model => model.Article.ART_SCAT_Id, model => model.CategoryId, "/api/SubCategories/GetSelectList", true)
+                @Html.AjaxSelectFor(model => model.Article.ART_SCAT_Id, model => model.CategoryId, "/api/SubCategories/GetSelectList")
             </div>
             <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.Article.ART_SCAT_Id)

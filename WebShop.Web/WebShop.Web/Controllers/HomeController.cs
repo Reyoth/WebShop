@@ -44,9 +44,11 @@ namespace WebShop.Web.Controllers
             return View();
         }
         [HttpGet]
-        public JsonResult Search(int categoryId, int subCategoryId)
+        public JsonResult Search(int? categoryId, int? subCategoryId)
         {
-            SearchMemory.SaveSearch(categoryId, subCategoryId);
+            SearchMemory.SaveSearch(categoryId ?? -2, subCategoryId ?? -2);
+            categoryId = SearchMemory.GetCategoryId();
+            subCategoryId = SearchMemory.GetSubCategoryId();
             var context = new WebShopEntities();
             var articles = context.Articles
                 .Include(a => a.SousCategorie)

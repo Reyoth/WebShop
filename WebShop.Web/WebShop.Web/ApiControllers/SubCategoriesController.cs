@@ -12,7 +12,7 @@ namespace WebShop.Web.ApiControllers
 {
     public class SubCategoriesController : ApiController
     {
-        public object GetSelectList(int parentId, bool withEmpty = true, bool withAll = true)
+        public object GetSelectList(int parentId, bool withEmpty, bool withAll)
         {
             using (var context = new WebShopEntities())
             {

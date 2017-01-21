@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using WebShop.Web.Session
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -24,7 +25,10 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Mon Panier","Index","Panier")</li>
+                    @if (!UserInfo.IsAdmin())
+                    {
+                        <li>@Html.ActionLink("Mon Panier", "Index", "Panier")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

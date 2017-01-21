@@ -28,6 +28,7 @@ namespace WebShop.Web.Controllers
                 dt.Columns.Add(new DataColumn("Libelle", typeof(string)));
                 dt.Columns.Add(new DataColumn("Prix", typeof(string)));
                 dt.Columns.Add(new DataColumn("Quantité", typeof(string)));
+                dt.Columns.Add(new DataColumn("Total", typeof(string)));
                 foreach (var article in data)
                 {
                     DataRow row = dt.NewRow();
@@ -35,6 +36,7 @@ namespace WebShop.Web.Controllers
                     row["Libelle"] = article.ART_Libelle;
                     row["Prix"] = article.ART_Prix;
                     row["Quantité"] = panier[article.ART_Id];
+                    row["Total"] = article.ART_Prix*panier[article.ART_Id];
                     dt.Rows.Add(row);
 
                 }

@@ -38,6 +38,7 @@ common.fillAjaxSelect = function (select, cascadeFromSelector) {
     var controlId = select.attr('id');
     var sourceUrl = select.attr('data-source-url');
     var withEmpty = select.attr('data-with-empty');
+    var withAll = select.attr('data-with-all');
     var selectedId = select.attr('data-selected-id');
     var parentId = $(cascadeFromSelector).val();
     var emptyCheck = withEmpty ? 1 : 0;
@@ -48,8 +49,8 @@ common.fillAjaxSelect = function (select, cascadeFromSelector) {
     });
 
     var requestParameters = parentId === undefined
-        ? { ajax: true, withEmpty: withEmpty }
-        : { ajax: true, parentId: parentId, withEmpty: withEmpty };
+        ? { ajax: true, withEmpty: withEmpty, withAll: withAll }
+        : { ajax: true, parentId: parentId, withEmpty: withEmpty, withAll: withAll };
 
     $.getJSON(sourceUrl, requestParameters, function (response) {
         if (response.Success === true) {

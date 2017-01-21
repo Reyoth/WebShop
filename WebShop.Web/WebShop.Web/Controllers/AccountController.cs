@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebShop.Domain;
 using WebShop.Web.Models;
+using WebShop.Web.Session;
 
 namespace WebShop.Web.Controllers
 {
@@ -444,6 +445,8 @@ namespace WebShop.Web.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            SearchMemory.SaveSearch(-2,-2);
+            Panier.ClearPanier();
             return RedirectToAction("Index", "Home");
         }
 

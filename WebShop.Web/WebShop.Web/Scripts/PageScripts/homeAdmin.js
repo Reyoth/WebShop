@@ -42,6 +42,7 @@ home.bindAction = function () {
                     function (data) {
                         $("#myModalcontent").html(data);
                         $("#myModal").modal("show");
+                        common.bindAjaxSelect('#myModal');
                     }
             });
         });

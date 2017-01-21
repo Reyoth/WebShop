@@ -1,4 +1,5 @@
-﻿@model WebShop.Web.Models.RegisterViewModel
+﻿@using WebShop.Web.Utils
+@model WebShop.Web.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -26,7 +27,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Civilite, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Civilite, new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.Civilite, SelectLists.GetCiviliteList(), new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

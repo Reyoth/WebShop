@@ -242,6 +242,7 @@
     <Compile Include="Session\SearchMemory.cs" />
     <Compile Include="Session\UserInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\SelectLists.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -570,10 +571,11 @@
     <Content Include="Views\Shared\_ArticleGridPartial.cshtml" />
     <Content Include="Views\Panier\CommanderPanier.cshtml" />
     <Content Include="Views\Home\IndexAdmin.cshtml" />
+    <Content Include="Views\Commande\Index.cshtml" />
+    <Content Include="Views\Commande\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Commande\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

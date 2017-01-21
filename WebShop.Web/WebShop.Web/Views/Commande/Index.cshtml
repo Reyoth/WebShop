@@ -1,0 +1,30 @@
+﻿@using Grid.Mvc
+@using GridMvc.Html
+@model IQueryable<WebShop.Domain.Commande>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Commandes</h2>
+
+@Html.Grid(Model).Columns(col =>
+{
+    col.Add(model => model.COM_Id)
+        .Titled("Numéro")
+        .Sortable(true)
+        .Filterable(true);
+    col.Add(model => model.COM_Statut)
+        .Titled("Statut")
+        .Sortable(true)
+        .Filterable(true);
+    col.Add(model => model.COM_Date)
+        .Titled("Date")
+        .Format("{0:dd/MM/yyyy}")
+        .Sortable(true)
+        .Filterable(true);
+    col.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(model => Html.ActionLink("Détail", "Detail", "Commande", new {id = model.COM_Id}, new {@class = "btn btn-primary btn-xs"}));
+})
