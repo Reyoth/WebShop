@@ -15,8 +15,11 @@ namespace WebShop.Web.Controllers
     {
         public ActionResult Index( int? page)
         {
+            var cat = SearchMemory.GetCategoryId();
+            var subCat = SearchMemory.GetSubCategoryId();
             var dbContext = new WebShop.Domain.WebShopEntities();
-            var model = dbContext.Articles.OrderBy(a=>a.ART_Libelle);
+            var model = dbContext.Articles.OrderBy(a=>a.ART_Libelle)
+                .Where(a=>a.ART_SCAT_Id == subCat || subCat==-2 && a.SousCategorie.SCAT_CAT_Id == cat || cat == -2);
             if (UserInfo.IsAdmin())
             {
                 return View("IndexAdmin", model);
