@@ -46,7 +46,24 @@ namespace WebShop.Web.Controllers
 
         public RedirectToRouteResult AddToPanier(int articleId)
         {
-            Panier.AddToPanier(articleId, 1);
+            using (var context = new WebShopEntities())
+            {
+                var panier = Panier.GetPanier();
+                var article = context.Articles.Find(articleId);
+                int quantite= article.ART_Stock;
+                foreach (var kvp in panier)
+                {
+                    if (kvp.Key== articleId)
+                    {
+                        quantite = kvp.Value;
+                    }
+                }
+                if (article.ART_Stock > 0 || article.ART_Stock < quantite)
+                {
+                    Panier.AddToPanier(articleId, 1);
+                   
+                }
+            }
             return RedirectToAction("Index", "Panier");
         }
 
@@ -95,6 +112,7 @@ namespace WebShop.Web.Controllers
                 foreach (var kvp in panier)
                 {
                     var article = context.Articles.Find(kvp.Key);
+                    article.ART_Stock -= kvp.Value;
                     var detailCommande = new DetailCommande
                     {
                         DCOM_COM_Id = model.COM_Id,
